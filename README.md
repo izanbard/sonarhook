@@ -1,15 +1,15 @@
-#Azure Devops Status Sonar Analysis Hook
+# Azure Devops Status Sonar Analysis Hook
 
 This tool will receive webhooks from successful sonar could analysis and pass them on as statuses to Azure Devops Repo PRs.
 
-##Requirements
+## Requirements
 
 - Python 3+
 - SonarCloud webhook with secret - https://sonarcloud.io/documentation/project-administration/webhooks/
 - ADO personal access token
 - mapping between sonar cloud project keys and ADO repo urls
 
-##Install
+## Install
 
 ```shell script
 git clone git@github.com:izanbard/sonarhook.git
@@ -21,7 +21,7 @@ pip install -r requirements
 deactivate
 ```
 
-##Configure
+## Configure
 
 Edit file `app.config.ini` and replace place holders with data
 
@@ -37,7 +37,7 @@ Edit file `app.config.ini` and replace place holders with data
 }
 ```
 
-##Run
+## Run
 
 ```shell script
 cd sonarhook
@@ -47,11 +47,11 @@ export SONAR_WEBHOOK_SECRET=[Sonar Web Hook Secret]
 python -m sonarhook --config app.config.json
 ```
 
-##Contributing/Forking
+## Contributing/Forking
 
 Go for your life.
 
-##To DO
+## To DO
 
 - Dockerise
 - Logging
