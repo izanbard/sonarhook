@@ -18,9 +18,8 @@ def create_app(args):
     @app.route("/sonarhook", methods=['POST'])
     def prhook():
         input_json = request.get_json()
-        print(input_json)
         if not valid_hmac_signature(request.data):
-            abort(404)
+            abort(401)
         if not is_pr_of_correct_type(input_json):
             return "", 204
         return send_ado_pr_status(input_json)
@@ -45,10 +44,7 @@ def create_app(args):
             'genre': "SonarHook",
             'name': input_json["project"]["name"]
         }
-        if input_json["qualityGate"]["status"] == "OK":
-            state = {'succeeded': "passed"}
-        else:
-            state = {'failed': "failed"}
+        state = 'succeeded' if input_json["qualityGate"]["status"] == "OK" else 'failed'
         target_url = input_json["branch"]["url"]
         git_pr_status = {
             'context': context,
@@ -62,7 +58,7 @@ def create_app(args):
             pull_request_id=pr_id,
             project=project_id
         )
-        print(response)
+
         return "ok", 200
 
     def get_repo_id(name, client, project):
@@ -75,7 +71,7 @@ def create_app(args):
     def get_config(filename):
         file = Path(os.path.join(os.getcwd(), filename))
         if not file.exists() or not file.is_file():
-            raise Exception(f"specified config file does not exist - {file} - aborting")
+            abort(500)
         with open(file, "r") as fd:
             config = json.load(fd)
         return config
