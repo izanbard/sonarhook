@@ -25,12 +25,26 @@ deactivate
 
 Edit file `app.config.ini` and replace place holders with data
 
+```json
+{
+  "repos": {
+    "[sonar_project_key]": {
+      "org_url": "[ADO url for org of that project key]",
+      "project_id_or_name": "[Project name for the project within the organisation]",
+      "repo_name": "[name od the repo (same as the slug)]"
+    } 
+  }
+}
+```
+
 ##Run
 
 ```shell script
 cd sonarhook
 source venv/bin/activate
-python -m sonarhook --config ./app.config.ini
+export ADO_PAT=[ADO Personal Access Token]
+export SONAR_WEBHOOK_SECRET=[Sonar Web Hook Secret]
+python -m sonarhook --config app.config.json
 ```
 
 ##Contributing/Forking
