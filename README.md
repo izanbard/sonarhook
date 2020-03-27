@@ -5,7 +5,7 @@ This tool will receive webhooks from successful sonar could analysis and pass th
 ##Requirements
 
 - Python 3+
-- SonarCloud webhook secret
+- SonarCloud webhook with secret - https://sonarcloud.io/documentation/project-administration/webhooks/
 - ADO personal access token
 - mapping between sonar cloud project keys and ADO repo urls
 
@@ -30,8 +30,8 @@ Edit file `app.config.ini` and replace place holders with data
   "repos": {
     "[sonar_project_key]": {
       "org_url": "[ADO url for org of that project key]",
-      "project_id_or_name": "[Project name for the project within the organisation]",
-      "repo_name": "[name od the repo (same as the slug)]"
+      "project_name": "[Project name for the project within the organisation]",
+      "repo_name": "[name of the repo (same as the slug)]"
     } 
   }
 }
@@ -54,3 +54,5 @@ Go for your life.
 ##To DO
 
 - Dockerise
+- Logging
+- Health check
