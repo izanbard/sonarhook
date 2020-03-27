@@ -28,11 +28,16 @@ Edit file `app.config.ini` and replace place holders with data
 ```json
 {
   "repos": {
-    "[sonar_project_key]": {
+    "[sonar_project_key_1]": {
       "org_url": "[ADO url for org of that project key]",
       "project_name": "[Project name for the project within the organisation]",
       "repo_name": "[name of the repo (same as the slug)]"
-    } 
+    },
+    "[sonar_project_key_2]": {
+      "org_url": "[ADO url for org of that project key]",
+      "project_name": "[Project name for the project within the organisation]",
+      "repo_name": "[name of the repo (same as the slug)]"
+    }
   }
 }
 ```
