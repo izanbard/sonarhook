@@ -63,7 +63,7 @@ def create_api(app: Application):
             project=project_id
         )
 
-        return response["state"], 200
+        return response.state, 200
 
     def get_repo_id(name, client, project):
         repos = client.get_repositories(project=project)

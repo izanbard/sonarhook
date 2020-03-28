@@ -81,3 +81,4 @@ Go for your life.
 
 - Logging
 - Unit Tests
+- Pipeline
