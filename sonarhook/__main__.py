@@ -1,24 +1,13 @@
-import argparse
-
 from waitress import serve
 
-from .app import create_app
-
-SERVER_PORT = 9000
-SERVER = "0.0.0.0"
-
-
-def parse_arguments():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--config",
-        "-c",
-        type=str,
-        default="app.config.json"
-    )
-    return parser.parse_args()
-
+from .api import create_api
+from .app import Application
 
 if __name__ == '__main__':
-    app = create_app(parse_arguments())
-    serve(app, host=SERVER, port=SERVER_PORT)
+    app = Application()
+    api = create_api(app)
+    serve(
+        api,
+        host=app.config["application"]["bind_address"],
+        port=app.config["application"]["port"]
+    )

@@ -1,4 +1,9 @@
 {
+  "application": {
+    "bind_address": "0.0.0.0",
+    "port": 9000,
+    "health_check_secret": "[my_super_secret]"
+  },
   "repos": {
     "[sonar_project_key_1]": {
       "org_url": "[ADO url for org of that project key]",
