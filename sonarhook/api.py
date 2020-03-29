@@ -32,18 +32,25 @@ def create_api(app: Application):
     def send_ado_pr_status(input_json):
         if input_json["project"]["key"] not in app.config["repos"]:
             return "", 204
-        org_url = app.config["repos"][input_json["project"]["key"]]["org_url"]
         project_id = app.config["repos"][input_json["project"]["key"]]["project_name"]
-        pr_id = int(input_json["branch"]["name"])
 
-        credentials = BasicAuthentication('', app.ADO_PAT)
-        connection = Connection(base_url=org_url, creds=credentials)
-        git_client = connection.clients_v5_1.get_git_client()
-
+        git_client = get_git_client(input_json)
         repo_id = get_repo_id(app.config["repos"][input_json["project"]["key"]]["repo_name"], git_client, project_id)
         if repo_id is None:
             abort(404)
 
+        pr_status = create_pr_status(input_json)
+        pr_id = int(input_json["branch"]["name"])
+        response = git_client.create_pull_request_status(
+            status=pr_status,
+            repository_id=repo_id,
+            pull_request_id=pr_id,
+            project=project_id
+        )
+
+        return response.state, 200
+
+    def create_pr_status(input_json):
         context = {
             'genre': "SonarHook",
             'name': input_json["project"]["name"]
@@ -55,15 +62,14 @@ def create_api(app: Application):
             'state': state,
             'target_url': target_url,
         }
+        return git_pr_status
 
-        response = git_client.create_pull_request_status(
-            status=git_pr_status,
-            repository_id=repo_id,
-            pull_request_id=pr_id,
-            project=project_id
-        )
-
-        return response.state, 200
+    def get_git_client(input_json):
+        org_url = app.config["repos"][input_json["project"]["key"]]["org_url"]
+        credentials = BasicAuthentication('', app.ADO_PAT)
+        connection = Connection(base_url=org_url, creds=credentials)
+        git_client = connection.clients_v5_1.get_git_client()
+        return git_client
 
     def get_repo_id(name, client, project):
         repos = client.get_repositories(project=project)
