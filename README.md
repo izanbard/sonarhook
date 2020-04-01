@@ -1,3 +1,9 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=izanbard_sonarhook&metric=alert_status)](https://sonarcloud.io/dashboard?id=izanbard_sonarhook)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=izanbard_sonarhook&metric=security_rating)](https://sonarcloud.io/dashboard?id=izanbard_sonarhook)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=izanbard_sonarhook&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=izanbard_sonarhook)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=izanbard_sonarhook&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=izanbard_sonarhook)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=izanbard_sonarhook&metric=sqale_index)](https://sonarcloud.io/dashboard?id=izanbard_sonarhook)
+
 # Azure Devops Status Sonar Analysis Hook
 
 This tool will receive webhooks from successful sonar could analysis and pass them on as statuses to Azure Devops Repo PRs.
