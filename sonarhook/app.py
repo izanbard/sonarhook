@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import string
 
 
 class Application:
@@ -29,12 +30,18 @@ class Application:
             default="app.config.json"
         )
         self.args = parser.parse_args()
+        self.args.config = self.clean_filename(self.args.config)
         return self.args
 
     def get_config(self, filename):
         file = Path(os.path.join(os.getcwd(), filename))
         if not file.exists() or not file.is_file():
-            raise Exception(f"specified config file not found - {file} - Aborting")
+            raise FileNotFoundError(f"specified config file not found - {file} - Aborting")
         with open(file, "r") as fd:
             self.config = json.load(fd)
         return self.config
+
+    def clean_filename(self, dirty_filename):
+        white_list=string.ascii_letters+string.digits+"-_."
+        cleaned_filename = ''.join(c for c in dirty_filename if c in white_list)
+        return cleaned_filename
