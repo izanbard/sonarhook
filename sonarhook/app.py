@@ -42,6 +42,6 @@ class Application:
         return self.config
 
     def clean_filename(self, dirty_filename):
-        white_list=string.ascii_letters+string.digits+"-_."
+        white_list=string.ascii_letters+string.digits+"-_./"
         cleaned_filename = ''.join(c for c in dirty_filename if c in white_list)
         return cleaned_filename
