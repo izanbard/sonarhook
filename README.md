@@ -10,7 +10,7 @@ This tool will receive webhooks from successful sonar could analysis and pass th
 
 ## Requirements
 
-- Python 3+
+- Python 3.6+
 - SonarCloud webhook with secret - https://sonarcloud.io/documentation/project-administration/webhooks/
 - ADO personal access token
 - mapping between sonar cloud project keys and ADO repo urls
