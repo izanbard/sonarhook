@@ -13,14 +13,16 @@ class Application:
     ADO_PAT = None
     SONAR_WEBHOOK_SECRET = None
     log = None
+    level = logging.INFO
 
     def __init__(self):
         self.log = logging.getLogger('sonarhook')
-        consol_handler = logging.StreamHandler()
-        consol_handler.setLevel(logging.INFO)
+        self.log.setLevel(self.level)
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(self.level)
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        consol_handler.setFormatter(formatter)
-        self.log.addHandler(consol_handler)
+        console_handler.setFormatter(formatter)
+        self.log.addHandler(console_handler)
         self.log.critical("App started")
         self.parse_arguments()
         self.log.info("Parsed Arguments")
@@ -48,7 +50,7 @@ class Application:
     def get_config(self, filename):
         file = Path(os.path.join(os.getcwd(), filename))
         if not file.exists() or not file.is_file():
-            self.log.info("Config file not found: %s", file)
+            self.log.critical("Config file not found: %s", file)
             raise ConfigNotFound(f"specified config file not found - {file} - Aborting")
         with open(file, "r") as fd:
             self.config = json.load(fd)
